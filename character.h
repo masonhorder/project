@@ -30,6 +30,7 @@ class Character
         int getStamina();
         int getWisdom();
         int getPridePoints();
+        bool getChosen();
 
         void setName(string name);
         void setAge(int age);
@@ -38,7 +39,10 @@ class Character
         void setWisdom(int wisdom);
         void setPridePoints(bool pridePoints);
 
-        // void printStats();
+
+        void choseChar();
+
+        void printStats();
 
 
 };

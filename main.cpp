@@ -23,8 +23,12 @@ int main(){
 
     Game game;
 
-    game.readFiles();
-    game.characterSelection();
+    game.readFiles(); // done for character input
+
+
+
+
+    game.playerSetup();
 
     // game.endGame();
 

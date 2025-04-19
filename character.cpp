@@ -54,20 +54,47 @@ int Character::getPridePoints(){
     return _pridePoints;
 }
 
-void setName(string name);
-void setAge(int age);
-void setStrength(int strength);
-void setStamina(int stamina);
-void setWisdom(int wisdom);
-void setPridePoints(bool pridePoints);
+bool Character::getChosen(){
+    return _isChosen;
+}
 
-// void Character::printStats(){
-//     cout << "Player Stats for " << _name << ": " << endl;
-//     cout << "Age: " << _age;
-//     cout << "Strength: " << _age;
-//     cout << "Stamina: " << _age;
-//     cout << "Age: " << _age;
-//     cout << "Age: " << _age;
-//     cout << "Chosen: " << _isChosen;
-// }
+
+
+
+
+
+void Character::setName(string name){
+    _name = name;
+}
+void Character::setAge(int age){
+    _age = age;
+}
+void Character::setStrength(int strength){
+    _strength = strength;
+}
+void Character::setStamina(int stamina){
+    _stamina = stamina;
+}
+void Character::setWisdom(int wisdom){
+    _wisdom = wisdom;
+}
+void Character::setPridePoints(bool pridePoints){
+    _pridePoints = pridePoints;
+}
+void Character::choseChar(){
+    // sets the character to picked
+
+    _isChosen = true;
+}
+
+
+void Character::printStats(){
+    cout << "Player Stats for " << _name << ": " << endl;
+    cout << "Age: " << _age << endl;
+    cout << "Strength: " << _strength << endl;
+    cout << "Stamina: " << _stamina << endl;
+    cout << "Wisdome: " << _wisdom << endl;
+    cout << "Pride Points: " << _pridePoints << endl;
+    cout << "Chosen: " << (_isChosen ? "Yes" : "No") << endl << endl;
+}
 

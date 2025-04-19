@@ -4,37 +4,14 @@
 
 using namespace std;
 
-// Player::Player(std::string name, int age, int strength, int stamina, int wisdom, int pridePoints){
-
-    
-
-//     std::string _name;
-//     Character _character;
-//     // Advisor _advisor;
-//     int _pathType;
-//     bool _hasAdvisor;
-//     int _position;
-//     int _previousPosition;
-//     bool _extraTurn;
-//     int _age;
-//     int _strength;
-//     int _stamina;
-//     int _wisdom;
-//     int _pridePoints;
-
-
-
-
-// }
 
 Player::Player(){
-    
+
 }
 
 Player::Player(std::string name){
     _name = name;
 }
-
 
 string Player::getName(){
     return _name;
@@ -60,12 +37,45 @@ int Player::getPridePoints(){
     return _pridePoints;
 }
 
-void setName(string name);
-void setAge(int age);
-void setStrength(int strength);
-void setStamina(int stamina);
-void setWisdom(int wisdom);
-void setPridePoints(bool pridePoints);
+int Player::getAdvisor(){
+    return _advisor;
+}
+
+
+
+
+
+
+
+void Player::setName(string name){
+    _name = name;
+}
+void Player::setAge(int age){
+    _age = age;
+}
+void Player::setStrength(int strength){
+    _strength = strength;
+}
+void Player::setStamina(int stamina){
+    _stamina = stamina;
+}
+void Player::setWisdom(int wisdom){
+    _wisdom = wisdom;
+}
+void Player::setPridePoints(bool pridePoints){
+    _pridePoints = pridePoints;
+}
+void Player::setCharName(string charName){
+    _charName = charName;
+}
+
+void Player::setPathType(int p){
+    _pathType = p;
+}
+
+void Player::setAdvisor(int a){
+    _advisor = a;
+}
 
 // void Player::printStats(){
 

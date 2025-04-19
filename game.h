@@ -4,16 +4,21 @@
 #include "player.h"
 #include "board.h"
 #include "character.h"
-#include "advisor.h"
 #include "event.h"
 #include "riddle.h"
 #include <vector>
 
 class Game {
 private:
-    Player player1;
-    Player player2;
+    // Player player1;
+    // Player player2;
+
+    Player players[5];
+
+    int _playerCount = 0;
+
     Board board;
+
     int turnCounter;
 
     std::vector<Character> allCharacters;
@@ -25,14 +30,16 @@ public:
     Game();
 
 
-    void startGame();
-    void readFiles();
-    void characterSelection();
-    void choosePath(Player p);
-    void mainMenu(Player p);
-    void processTile(Player p, Tile t);
-    void handleRandomEvent(Player p);
-    void handleChallenge(Player p);
+    void readFiles(); 
+
+    void playerSetup(); // assign the players names, characters and paths
+
+    void mainMenu();
+
+
+    void processTile();
+    void handleRandomEvent();
+    void handleChallenge();
     void playTurn(Player p);
     bool isGameOver();
     void endGame();
