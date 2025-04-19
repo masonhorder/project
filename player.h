@@ -9,10 +9,11 @@ class Player
 {
     private:
         std::string _name;
-        // Character _character;
+        Character _character;
         int _advisor;
+        string _advisorName;
         int _pathType; // 1 = pride land    2 = cub training
-        int _position;
+        int _position = 0;
         int _previousPosition;
         bool _extraTurn;
         int _age;
@@ -20,7 +21,7 @@ class Player
         int _stamina;
         int _wisdom;
         int _pridePoints;
-        string _charName;
+        string _characterName;
 
     public:
 
@@ -44,35 +45,22 @@ class Player
         int getStamina();
         int getWisdom();
         int getPridePoints();
+        string getAdvisorName();
         // int getPathType();
 
         // setters
-
-        // void setName(std::string name);
-        // void getCharacter(Character character);
-        // void getAdvisor(Advisor advisor);
-        // void getPathType(int pathType);
-        // void getHasAdvisor(bool hasAdvisor);
-        // void getPosition(int position);
-        // void getPreviousPosition(int previousPosition);
-        // void getExtraTurn(bool extraTurn);
-        // void getAge(int age);
-        // void getStrength(int strength);
-        // void getStamina(int stamina);
-        // void getWisdom(int wisdom);
-        // void getPridePoints(int pridePoints);
-        // bool getChosen();
-
 
         void setName(string name);
         void setAge(int age);
         void setStrength(int strength);
         void setStamina(int stamina);
         void setWisdom(int wisdom);
-        void setPridePoints(bool pridePoints);
+        void setPridePoints(int pridePoints);
         void setCharName(string charName);
         void setPathType(int p);
         void setAdvisor(int a);
+        void setAdvisorName(string a);
+        void setCharacter(Character c);
 
 
 
@@ -80,10 +68,14 @@ class Player
 
         // methods
 
+        void printPlayerStats();
+        void cubTraining();
+        void prideLand();
         void move(int spaces);
         void updateStats(); // update stats based on certain things
         void chooseAdvisor(); // allows for picking an advisor
         void traitToPoints();
+
 
 
 };

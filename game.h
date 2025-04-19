@@ -34,13 +34,15 @@ public:
 
     void playerSetup(); // assign the players names, characters and paths
 
+    void setUpBoard();
+
     void mainMenu();
 
 
     void processTile();
     void handleRandomEvent();
     void handleChallenge();
-    void playTurn(Player p);
+    void playTurn();
     bool isGameOver();
     void endGame();
 };

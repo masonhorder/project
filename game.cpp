@@ -113,7 +113,7 @@ void Game::playerSetup(){
     
     for(int i = 0; i < _playerCount; i++){
 
-        Player playerUp = players[i];
+        // Player players[i] = players[i];
 
     
 
@@ -128,7 +128,7 @@ void Game::playerSetup(){
         string selection;
         bool validSelection = false;
         int selectionIndex;
-        cout << "\n\n" << playerUp.getName() << " you are up, which character do you want? \n(Type in their name): ";
+        cout << "\n\n" << players[i].getName() << " you are up, which character do you want? \n(Type in their name): ";
         cin >> selection;
 
         while (!validSelection)
@@ -160,13 +160,14 @@ void Game::playerSetup(){
 
 
         // give player character stats
-        playerUp.setAge(allCharacters[selectionIndex].getAge());
-        playerUp.setStrength(allCharacters[selectionIndex].getStrenght());
-        playerUp.setStrength(allCharacters[selectionIndex].getStrenght());
-        playerUp.setStamina(allCharacters[selectionIndex].getStamina());
-        playerUp.setWisdom(allCharacters[selectionIndex].getWisdom());
-        playerUp.setPridePoints(allCharacters[selectionIndex].getPridePoints());
-        playerUp.setCharName(allCharacters[selectionIndex].getName());
+        players[i].setAge(allCharacters[selectionIndex].getAge());
+        players[i].setStrength(allCharacters[selectionIndex].getStrenght());
+        players[i].setStrength(allCharacters[selectionIndex].getStrenght());
+        players[i].setStamina(allCharacters[selectionIndex].getStamina());
+        players[i].setWisdom(allCharacters[selectionIndex].getWisdom());
+        players[i].setPridePoints(allCharacters[selectionIndex].getPridePoints());
+        players[i].setCharName(allCharacters[selectionIndex].getName());
+        players[i].setCharacter(allCharacters[selectionIndex]);
 
         
         // which path do you want
@@ -190,14 +191,18 @@ void Game::playerSetup(){
             }
         }
 
-        playerUp.setPathType(path);
+        players[i].setPathType(path);
 
         // if in cub training pick an advisor
         if(path == 2){
             
+            players[i].cubTraining();
+
+
             cout << "\n\nYou have picked to be in Cub Training, congratulations you get to pick an advisor! Advisors can protect you from certain random events. \nHere are your options: \n\n";
 
             int advisor = 0;
+            string advisorName;
             bool validAdvisorSelection = false;
 
             while(!validAdvisorSelection){
@@ -217,14 +222,36 @@ void Game::playerSetup(){
                 }
             }
 
-            playerUp.setAdvisor(advisor);
+            players[i].setAdvisor(advisor);
+            switch (advisor){
+                case 1:
+                    players[i].setAdvisorName("Rafiki");
+                    break;
+                case 2:
+                    players[i].setAdvisorName("Nala");
+                    break;
+                case 3:
+                    players[i].setAdvisorName("Sarabi");
+                    break;
+                case 4:
+                    players[i].setAdvisorName("Zaru");
+                    break;
+                case 5:
+                    players[i].setAdvisorName("Sarafina");
+                    break;
+
+            }
+
+            
 
             
         
         }
 
         else{
-            playerUp.setAdvisor(0);
+            players[i].setAdvisor(0);
+            players[i].setAdvisorName("");
+            players[i].prideLand();
         }
 
 
@@ -237,34 +264,86 @@ void Game::playerSetup(){
 
 }
 
-// void Game::choosePath(Player p){
 
-// }
 
-// void Game::mainMenu(Player p){
 
-// }
 
-// void Game::processTile(Player p, Tile t){
 
-// }
+// SET UP BOARD
 
-// void Game::handleRandomEvent(Player p){
+void Game::setUpBoard(){
+    board = Board();
 
-// }
+    // board.displayBoard();
+}
 
-// void Game::handleChallenge(Player p){
 
-// }
 
-// void Game::playTurn(Player p){
 
-// }
+bool Game::isGameOver(){
+    return false;
+}
 
-// bool Game::isGameOver(){
-//     return true;
-// }
 
-// void Game::endGame(){
+void Game::playTurn(){
+    for(int i = 0; i < _playerCount; i++){
+        // main menu
 
-// }
+        cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+        board.displayBoard();
+        bool mainMenu = true;
+        while(mainMenu){
+            int mainMenuSelection;
+
+            
+            cout << "\n\n\n" << players[i].getName() << " it is your turn.";
+            cout << "\n\nMAIN MENU - Select an option to continue:";
+            cout << "\n\n1. Check Player Progress (1)";
+            cout << "\n\n2. Review Character (2)";
+            cout << "\n\n3. Check Position (3)";
+            cout << "\n\n4. Review your Advisor (4)";
+            cout << "\n\n5. Move Forward (5)";
+
+            cout << "\n\n\nPlease chose one of the following options: ";
+            cin >> mainMenuSelection;
+
+            while(mainMenuSelection < 1 || mainMenuSelection > 5){
+                cout << "\nOops, type in 1, 2, 3, 4 or 5: ";
+                cin >> mainMenuSelection;
+            }
+            cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+            if(mainMenuSelection != 5){
+                switch (mainMenuSelection){
+
+                    case 1: // main menu - check player progress
+                        players[i].printPlayerStats();
+
+                        // TODO: add ability to convert points
+
+                        break;
+                    
+                    case 2: // main menu - review character 
+                        players[i].getCharacter().printStats();
+                        break;
+
+                    case 3: // check position
+                        cout << "You are on position: " << players[i].getPosition() << endl;
+                        break;
+
+                    case 4: // review advsior
+                        cout << players[i].getAdvisor();
+                        break;
+
+
+                }
+            }
+            else{
+                mainMenu = false;
+            }
+        }
+    }
+}
+
+
+
+

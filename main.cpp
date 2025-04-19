@@ -24,15 +24,24 @@ int main(){
     Game game;
 
     game.readFiles(); // done for character input
+    game.playerSetup(); // player set up
+    game.setUpBoard();  // create a random game board
+
+
+    //loop unitl game end
 
 
 
+    while(!game.isGameOver()){  // TODO change this to actual condition eventually
+        game.playTurn();
+    }
+    
 
-    game.playerSetup();
+
 
     // game.endGame();
 
-    // do you want to play again
+    
 
     return 0;
 }

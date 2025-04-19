@@ -89,7 +89,7 @@ void Character::choseChar(){
 
 
 void Character::printStats(){
-    cout << "Player Stats for " << _name << ": " << endl;
+    cout << "Character Stats for " << _name << ": " << endl;
     cout << "Age: " << _age << endl;
     cout << "Strength: " << _strength << endl;
     cout << "Stamina: " << _stamina << endl;
