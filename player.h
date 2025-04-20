@@ -61,6 +61,7 @@ class Player
         void setAdvisor(int a);
         void setAdvisorName(string a);
         void setCharacter(Character c);
+        void setPosition(int p);
 
 
 

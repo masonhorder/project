@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <sstream>
+#include <random>
+#include <ctime>
 
 using namespace std;
 
@@ -169,7 +171,7 @@ void Game::playerSetup(){
         players[i].setCharName(allCharacters[selectionIndex].getName());
         players[i].setCharacter(allCharacters[selectionIndex]);
 
-        
+    
         // which path do you want
 
         int path = 0;
@@ -272,7 +274,16 @@ void Game::playerSetup(){
 // SET UP BOARD
 
 void Game::setUpBoard(){
-    board = Board();
+    board = Board(_playerCount);
+    
+    int pMap[5][2];
+
+    for(int i = 0; i < _playerCount; i++){
+        pMap[i][1] = 0;
+        pMap[i][0] = players[i].getPathType();
+    }
+
+    board.setPlayerMap(pMap);
 
     // board.displayBoard();
 }
@@ -290,6 +301,9 @@ void Game::playTurn(){
         // main menu
 
         cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+
+        
+
         board.displayBoard();
         bool mainMenu = true;
         while(mainMenu){
@@ -311,6 +325,7 @@ void Game::playTurn(){
                 cout << "\nOops, type in 1, 2, 3, 4 or 5: ";
                 cin >> mainMenuSelection;
             }
+
             cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
             if(mainMenuSelection != 5){
                 switch (mainMenuSelection){
@@ -331,7 +346,72 @@ void Game::playTurn(){
                         break;
 
                     case 4: // review advsior
-                        cout << players[i].getAdvisor();
+                        cout << "Advisor Name: " << (players[i].getPathType() == 1 ? "You don't have an advisor, you selected to be in pride lands" : players[i].getAdvisorName()) << endl;
+
+                        if(players[i].getPathType() == 2){
+                            string changeAdvisor;
+                            cout << "\nWould you like to change your advisor? (Y or N): ";
+                            cin >> changeAdvisor;
+
+                            while(changeAdvisor != "Y" && changeAdvisor != "N"){
+                                cout << "\nOops I didn't understand that, (Y or N): ";
+                                cin >> changeAdvisor;
+
+                            }
+                            if(changeAdvisor == "Y"){
+                                
+                                cout << "\n\nYou can update your advisor \nHere are your options: \n\n";
+
+                                int advisor = 0;
+                                string advisorName;
+                                bool validAdvisorSelection = false;
+
+                                while(!validAdvisorSelection){
+                                    
+                                    cout << "Option 1: Rafiki - Invisibility (the ability to become un-seen)" << endl;
+                                    cout << "Option 2: Nala - Night Vision (the ability to see clearly in darkness)" << endl;
+                                    cout << "Option 3: Sarabi - Energy Manipulation (the ability to shape and control the properties of energy)" << endl;
+                                    cout << "Option 4: Zazu - Weather Control (the ability to influence and manipulate weather patterns)" << endl;
+                                    cout << "Option 5: Sarafina - Super Speed (the ability to run 4x faster than the maximum speed of lions)" << endl;
+                                    cout << "(Type in the option/advisor you want): ";
+                                    cin >> advisor;
+                                    if(advisor == 1 || advisor == 2 || advisor == 3 || advisor == 4 || advisor == 5){
+                                        validAdvisorSelection = true;
+                                    }
+                                    if(!validAdvisorSelection){
+                                        cout << "\n\nInvalid Advisor selection, try again" << endl;
+                                    }
+                                }
+
+                                players[i].setAdvisor(advisor);
+                                switch (advisor){
+                                    case 1:
+                                        players[i].setAdvisorName("Rafiki");
+                                        break;
+                                    case 2:
+                                        players[i].setAdvisorName("Nala");
+                                        break;
+                                    case 3:
+                                        players[i].setAdvisorName("Sarabi");
+                                        break;
+                                    case 4:
+                                        players[i].setAdvisorName("Zaru");
+                                        break;
+                                    case 5:
+                                        players[i].setAdvisorName("Sarafina");
+                                        break;
+
+                                }
+                                
+
+                            }
+                            // else{
+
+                            // }
+
+
+                            
+                        }
                         break;
 
 
@@ -341,6 +421,41 @@ void Game::playTurn(){
                 mainMenu = false;
             }
         }
+
+        // move forward starts here
+
+
+
+        // spinner
+        cout << "===============================\n\n";
+        cout << players[i].getName() << ", we are going to roll a dice, this will indicate how many spaces you move." << endl;
+
+        // roll dice
+        std::uniform_int_distribution<int> distribution(1, 6);
+        static std::mt19937 generator(std::time(0));
+        int moveSpaces = distribution(generator);
+
+        cout << "YOU ROLLED: " << moveSpaces;
+
+        if(!board.movePlayer(i, moveSpaces)){
+            players[i].setPosition(board.getPlayerPosition(i));
+
+
+
+        }
+        else{
+            // game end
+        }
+
+
+        
+
+
+
+
+
+
+
     }
 }
 

@@ -41,6 +41,10 @@ int Player::getAdvisor(){
     return _advisor;
 }
 
+string Player::getAdvisorName(){
+    return _advisorName;
+}
+
 int Player::getPosition(){
     return _position;
 }
@@ -48,6 +52,11 @@ int Player::getPosition(){
 Character Player::getCharacter(){
     return _character;
 }
+
+int Player::getPathType(){
+    return _pathType;
+}
+
 
 
 
@@ -90,6 +99,10 @@ void Player::setAdvisorName(string a){
 
 void Player::setCharacter(Character c){
     _character = c;
+}
+
+void Player::setPosition(int p){
+    _position = p;
 }
 
 
