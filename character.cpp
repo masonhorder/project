@@ -4,22 +4,18 @@
 
 using namespace std;
 
+
+// "common" character object constructor which passes through all the values
 Character::Character(std::string name, int age, int strength, int stamina, int wisdom, int pridePoints){
-
-    
-
     _name = name;
     _age = age;
     _strength = strength;
     _stamina = stamina;
     _wisdom = wisdom;
     _pridePoints = pridePoints;
-
-
-
-
 }
 
+// default constructor
 Character::Character() {
     _name = "";
     _age = 0;
@@ -29,7 +25,7 @@ Character::Character() {
     _pridePoints = 0;
 }
 
-
+// GETTERS:
 string Character::getName(){
     return _name;
 }
@@ -61,7 +57,7 @@ bool Character::getChosen(){
 
 
 
-
+// SETTERS:
 
 void Character::setName(string name){
     _name = name;
@@ -88,6 +84,8 @@ void Character::choseChar(){
 }
 
 
+
+// print the characters stats/traits
 void Character::printStats(){
     cout << "Character Stats for " << _name << ": " << endl;
     cout << "Age: " << _age << endl;

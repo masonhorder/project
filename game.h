@@ -30,17 +30,14 @@ public:
     Game();
 
 
+
+    // METHODS
+
     void readFiles(); 
 
     void playerSetup(); // assign the players names, characters and paths
-
     void setUpBoard();
-
-    void mainMenu();
-
     int getPlayerCount();
-
-
     void processTile();
     void handleRandomEvent();
     void handleChallenge();

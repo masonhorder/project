@@ -7,14 +7,13 @@
 
 
 class Event {
-    private:
+private:
     std::string _description;
     int _pathType;
     int _advisorFilter;
     int _prideDelta;         
 
-    public:
-    // ctor
+public:
     Event(std::string desc, int ptype, int advisorFilter, int delta);
 
     // getters

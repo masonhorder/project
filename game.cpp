@@ -16,16 +16,11 @@ using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
 using std::chrono::system_clock;
 
 
-Game::Game(){
-
-}
-
-void startGame(){
-
-}
 
 
+// FILE SET UP
 
+// this method reads the files for riddles, events and characters
 void Game::readFiles() {
 
     // read character files
@@ -137,7 +132,6 @@ void Game::readFiles() {
 
         std::stringstream ss(line);
         std::string question, answer;
-        // int pathType, advisor, prideDelta;
 
         // split on '|'
         if (!std::getline(ss, question, '|') ||
@@ -157,6 +151,10 @@ void Game::readFiles() {
 }
 
 
+
+// PLAYER SET UP
+
+// sets up player with certain values
 void Game::playerSetup(){
 
     cout << "\n\nWelcome to the safari, we are going to put your survival skills to the test!\nYou need 2-5 players for this game, so find a couple friends. \n" << endl;
@@ -190,14 +188,6 @@ void Game::playerSetup(){
     _playerCount = playerCountInput;
 
     
-
-    // cout << "Here are your lions to pick from: \n\n";
-
-    // for(int i = 0; i < 5; i++){
-    //     allCharacters[i].printStats();
-    // }
-
-
     // This loop sets name
 
     for(int i = 0; i < _playerCount; i++){
@@ -211,10 +201,6 @@ void Game::playerSetup(){
 
     
     for(int i = 0; i < _playerCount; i++){
-
-        // Player players[i] = players[i];
-
-    
 
         // character selection
 
@@ -269,7 +255,7 @@ void Game::playerSetup(){
         players[i].setCharacter(allCharacters[selectionIndex]);
 
     
-        // which path do you want
+        // path selection
 
         int path = 0;
         bool validPathSelection = false;
@@ -359,8 +345,6 @@ void Game::playerSetup(){
 
     }
 
-    // cout << "------" << player1.getName() << player1.getAge() << player1.getAdvisor() << player2.getName() << player2.getAge() << player2.getAdvisor();
-
 }
 
 
@@ -375,11 +359,6 @@ void Game::setUpBoard(){
     
     int pMap[5][2];
 
-    // [
-    //     [1,0],
-    //     [2,0],
-    //     [1,0]
-    // ]
 
     for(int i = 0; i < _playerCount; i++){
         pMap[i][1] = 0; // sets position to 0,
@@ -388,37 +367,42 @@ void Game::setUpBoard(){
 
     board.setPlayerMap(pMap);
 
-    // board.displayBoard();
 }
 
 
-
+// Check if game over
 
 bool Game::isGameOver(){
     int playersDone = 0;
-    for(int i = 0; i < _playerCount; i++){
+    for(int i = 0; i < _playerCount; i++){ // for each player, add if they are done
         if(players[i].getFinished()) playersDone++;
     }
 
-    if(playersDone == _playerCount) return true;
+    if(playersDone == _playerCount) return true; // if playersDone == total players, everyone is done
     return false;
 
 }
 
 
+
+// GAME PLAY
+
+// this function includes the main game play
+
+// it loops through and grants a turn to each player
 void Game::playTurn(){
     std::srand(std::time(0));
     for(int i = 0; i < _playerCount; i++){
         // main menu
         cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-        if(!players[i].getFinished()){
+        if(!players[i].getFinished()){ // check if the player is finished - if they are skip their turn
             cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
             
 
             board.displayBoard();
             bool mainMenu = true;
-            while(mainMenu){
+            while(mainMenu){ // loop through the main menu letting the player pick until they chose to move on
                 int mainMenuSelection;
 
                 
@@ -437,18 +421,21 @@ void Game::playTurn(){
                     cout << "\nOops, type in 1, 2, 3, 4 or 5: ";
                     cin >> mainMenuSelection;
                 }
+
+
                 string convertPoints;
+
+
                 cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
                 if(mainMenuSelection != 5){
                     switch (mainMenuSelection){
 
-                        case 1: // main menu - check player progress
+                        case 1: // main menu - check player progress and convert points
                             players[i].printPlayerStats();
 
 
                             
                             cout << "\nWould you like to convert your points right now? (Y or N): ";
-                            // cout << "\nWould you like to change your advisor? (Y or N): ";
                             cin >> convertPoints;
 
                             while(convertPoints != "Y" && convertPoints != "N"){
@@ -469,14 +456,14 @@ void Game::playTurn(){
                             players[i].getCharacter().printStats();
                             break;
 
-                        case 3: // check position
+                        case 3: // main menu - check position
                             cout << "You are on position: " << players[i].getPosition() << endl;
                             break;
 
-                        case 4: // review advsior
+                        case 4: // main menu - review advsior
                             cout << "Advisor Name: " << (players[i].getAdvisor() != 1 ? "You don't have an advisor, you selected to be in pride lands" : players[i].getAdvisorName()) << endl;
 
-                            if(players[i].getAdvisor() != 0){
+                            if(players[i].getAdvisor() != 0){ // check they have the ability to select advisor
                                 string changeAdvisor;
                                 cout << "\nWould you like to change your advisor? (Y or N): ";
                                 cin >> changeAdvisor;
@@ -486,7 +473,8 @@ void Game::playTurn(){
                                     cin >> changeAdvisor;
 
                                 }
-                                if(changeAdvisor == "Y"){
+
+                                if(changeAdvisor == "Y"){ // change advisor if they want to
                                     
                                     cout << "\n\nYou can update your advisor \nHere are your options: \n\n";
 
@@ -533,9 +521,7 @@ void Game::playTurn(){
                                     
 
                                 }
-                                // else{
 
-                                // }
 
 
                                 
@@ -550,20 +536,20 @@ void Game::playTurn(){
                 }
             }
 
-            // move forward starts here
+            // if player selected to roll and move here is the code (ie loop is broken)
 
             bool anotherTurn = true;
             while(anotherTurn){
                 anotherTurn = false;
-                // spinner
+                
+                
+                // roll a dice
                 cout << "===============================\n\n";
                 cout << players[i].getName() << ", we are going to roll a dice, this will indicate how many spaces you move." << endl;
                 
-                // roll dice
                 std::uniform_int_distribution<int> distribution(1, 6);
                 static std::mt19937 generator(std::time(0));
                 int moveSpaces = distribution(generator);
-                // int moveSpaces = 20;
                 cout << "YOU ROLLED: " << moveSpaces << "\n\n";
 
 
@@ -575,14 +561,13 @@ void Game::playTurn(){
                     moveSpaces = 51 - players[i].getPosition();
                     players[i].setPosition(52);
                     board.movePlayer(i, moveSpaces);
-                    // sleep_for(4000ms);
                 }
                 else{
                     
                     // handle players new tile
 
 
-                    // moves
+                    // moves player to new spot
                     board.movePlayer(i, moveSpaces);
                     players[i].setPosition(board.getPlayerPosition(i));
                     board.displayBoard();
@@ -593,7 +578,7 @@ void Game::playTurn(){
 
 
 
-                    // EXTRA CREDIT, players battle for space on tile
+                    // EXTRA CREDIT, players battle for space on tile if they land on the same tile
 
                     int playerOnTile = -1;
 
@@ -637,18 +622,22 @@ void Game::playTurn(){
                     }
 
 
-                    else{
+                    else{ // if two players arent on same tile, handle it as normal
                         char tile = board.processTile(players[i].getPathType(), players[i].getPosition());
 
-                        if(tile == 'G'){
+
+                        // checks for the different tiles and has action based on what they land on
+                        if(tile == 'G'){  // grass land tile
+
                             int randomEventHappening = rand() % 100;
                             cout << "\n\nGrass Land!" << endl;
                             sleep_for(2000ms);
-                            if(randomEventHappening < 50){
+
+                            if(randomEventHappening < 50){ // 50% chance a player gets a random event
                                 cout << "\nYou have been chosen for a random event" << endl;
                                 int pickRandomEvent;
                                 bool validEvent = false;
-                                while(!validEvent){
+                                while(!validEvent){ // makes sure that the event pertains to the correct path type
                                     pickRandomEvent = rand() % 50;
                                     if((allEvents[pickRandomEvent].getPathType() == 2) || ((allEvents[pickRandomEvent].getPathType() == 0 ? 2 : 1) == players[i].getPathType()) ){
                                         validEvent = true;
@@ -656,6 +645,8 @@ void Game::playTurn(){
                                 }
                                 
                                 cout << "\n" << allEvents[pickRandomEvent].getDescription() << endl;
+
+                                // checks if advisor blocks the event
                                 if((players[i].getAdvisor() == allEvents[pickRandomEvent].getAdvisorFilter()) && players[i].getAdvisor() != 0){
                                     cout << "Lucky you, your advisor blocks you from this event!" << endl;
 
@@ -667,17 +658,20 @@ void Game::playTurn(){
                                 
 
                             }
-                            else{
+
+
+                            else{ // in the case that there is no event chosen
                                 cout << "\nNothing in the grass lands for you this time" << endl;
                             }
 
                             
                         }
 
+
                         else if(tile == 'B'){ // oasis tile
                             cout << "Oasis tile! You get another turn, and +200 stamina, wisdom and strenght" << endl;
                             
-                            anotherTurn = true; // gives players an extra turn
+                            anotherTurn = true; // gives players an extra turn, runs loop again
 
 
                             //updates stats
@@ -685,6 +679,7 @@ void Game::playTurn(){
                             players[i].setStrength(players[i].getStrength() + 200);
                             players[i].setWisdom(players[i].getWisdom() + 200);
                         }
+
 
                         else if(tile == 'R'){ // graveyard tile
                             cout << "Graveyard! You have to go back 10 spaces, and lose 100 stamina, strength and wisdom" << endl;
@@ -701,7 +696,8 @@ void Game::playTurn(){
 
                         else if(tile == 'N'){ // hyena tile
                             cout << "Hyena Tile, unfortunately you have been dragged back to you last position and lost 300 stamina points" << endl;
-
+                            
+                            // update stats
                             players[i].setStamina(players[i].getStamina() - 300);
 
                             board.movePlayer(i, -moveSpaces);
@@ -714,12 +710,14 @@ void Game::playTurn(){
                         else if(tile == 'P'){ // counseling tile
                             cout << "Counseling Tile, pick an advisor and gain 300 stamina, strength and wisdom points" << endl;
 
+                            // update stats
                             players[i].setStamina(players[i].getStamina() + 300);
                             players[i].setStrength(players[i].getStrength() + 300);
                             players[i].setWisdom(players[i].getWisdom() + 300);
 
                             cout << "\n\nYou can update your advisor \nHere are your options: \n\n";
 
+                            // allow advisor selection
                             int advisor = 0;
                             string advisorName;
                             bool validAdvisorSelection = false;
@@ -766,6 +764,8 @@ void Game::playTurn(){
                             
                             cout << "Challenge tile, Answer the riddle to gain 500 pride points" << endl;
 
+
+                            // randomly picks a riddle
                             int pickRandomRiddle = rand() % 28;
 
                             string answer = allRiddles[pickRandomRiddle].getAnswer();
@@ -775,23 +775,29 @@ void Game::playTurn(){
                             cin >> input;
 
 
-                            // makes answer actually correct
-                            answer.erase(0, answer.find_first_not_of(" \t\r\n"));               // left trim
-                            answer.erase(answer.find_last_not_of(" \t\r\n") + 1);               // right trim
+                            // makes answer actually correct by trimming the strings so only the chars are left
+                            answer.erase(0, answer.find_first_not_of(" \t\r\n"));               
+                            answer.erase(answer.find_last_not_of(" \t\r\n") + 1);               
 
-                            input.erase(0, input.find_first_not_of(" \t\r\n"));                 // left trim
+                            input.erase(0, input.find_first_not_of(" \t\r\n"));                 
                             input.erase(input.find_last_not_of(" \t\r\n") + 1); 
 
-                            if(answer == input){
+
+
+                            if(answer == input){ // awards points if player is correct
                                 cout << "\n\nCongrats you got it right! +500 pride points" << endl;
                                 players[i].setPridePoints(players[i].getPridePoints() + 500);
                             }
+
+
                             else{
                                 cout << "Wrong! Correct Answer: " << answer << endl;
                             }
 
                         }
 
+
+                        // EXTRA CREDIT: tiles for each path type
                         else if(tile == 'W'){ // EXTRA CREDIT yellow tile which is pot of gold for pride lands
                             cout << "You landed on the best tile, pot of gold, enjoy +2000 pride points." << endl << endl;
                             players[i].setPridePoints(players[i].getPridePoints() + 2000);
@@ -800,7 +806,7 @@ void Game::playTurn(){
                         }
 
                         else if(tile == 'A'){ // EXTRA CREDIT black tile which removes points from every other player
-                            cout << "You have turned to a wizard, suck away 100 pride points from every other player." << endl << endl;
+                            cout << "You have turned to a wizard, take away 100 pride points from every other player." << endl << endl;
                             for(int s = 0; s < _playerCount; s++){
                                 if(s != i){
                                     players[s].setPridePoints(players[s].getPridePoints()-100);
@@ -830,11 +836,12 @@ void Game::playTurn(){
 }
 
 
-
+// method to end the game
 void Game::endGame(){
 
     int playersranked[5];
 
+    // convert points
     for(int i = 0; i < _playerCount; i++){
         players[i].traitToPoints();
     }
@@ -845,6 +852,9 @@ void Game::endGame(){
         playersranked[i] = i;
     }
 
+
+
+    // sort players, create a ranked list based off pride poibnts
     for(int i = 0; i < n; ++i) {
         int bestPos = i;
         int bestIndex = playersranked[i];
@@ -855,7 +865,7 @@ void Game::endGame(){
             int pts = players[idx].getPridePoints();
             if (pts > bestScore) {
                 bestScore = pts;
-                bestPos   = j;
+                bestPos = j;
             }
         }
 
@@ -867,8 +877,10 @@ void Game::endGame(){
     }
 
 
-    std::ofstream out("results.txt");
+    std::ofstream out("results.txt");  // stores results to a file
 
+
+    // PRINT/STORE results
     cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     
     cout << "GAME OVER!!\n\n\n";
@@ -930,7 +942,7 @@ void Game::endGame(){
 }
 
 
-
+// returns player count
 int Game::getPlayerCount(){
     return _playerCount;
 }

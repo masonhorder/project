@@ -28,14 +28,11 @@ class Player
 
         Player(std::string _name);
         Player();
-        // Player(std::string _name, Character _character, Advisor _advisor, int _pathType, bool _ int _character, int _strength, int _stamina, int _wisdom, int _pridePoints);
         
 
-        // getters
-
+        // GETERS
         string getName();
         Character getCharacter();
-        // Advisor getAdvisor();
         int getPathType();
         int getAdvisor();
         int getPosition();
@@ -48,9 +45,8 @@ class Player
         int getPridePoints();
         string getAdvisorName();
         bool getFinished();
-        // int getPathType();
 
-        // setters
+        // SETTERS
 
         void setName(string name);
         void setAge(int age);
@@ -69,7 +65,7 @@ class Player
 
         
 
-        // methods
+        // METHODS
 
         void printPlayerStats();
         void cubTraining();

@@ -23,7 +23,7 @@ class Character
         Character();
         Character(std::string _name, int _age, int _strength, int _stamina, int _wisdom, int _pridePoints);
         
-
+        // GETTERS
         string getName();
         int getAge();
         int getStrenght();
@@ -32,6 +32,7 @@ class Character
         int getPridePoints();
         bool getChosen();
 
+        // SETTERS
         void setName(string name);
         void setAge(int age);
         void setStrength(int strength);
@@ -39,9 +40,8 @@ class Character
         void setWisdom(int wisdom);
         void setPridePoints(bool pridePoints);
 
-
+        // METHODS
         void choseChar();
-
         void printStats();
 
 

@@ -4,6 +4,8 @@
 #include <ctime>   
 
 
+// Color definitions for colored tiles
+
 #define RED "\033[48;2;230;10;10m"
 #define GREEN "\033[48;2;34;139;34m"
 #define BLUE "\033[48;2;10;10;230m"
@@ -19,6 +21,8 @@
 
 using namespace std;
 
+
+// default board constructor - never used
 Board::Board() {
     _player_count = _MAX_PLAYERS;
     for (int i = 0; i < _player_count; i++) {
@@ -27,23 +31,14 @@ Board::Board() {
     initializeBoard();
 }
 
-
+// board constructor which is used in the code
 Board::Board(int player_count)
 {
-    // if (player_count > _MAX_PLAYERS)
-    //     _player_count = _MAX_PLAYERS;
-    // else
-    //     _player_count = player_count;
-
-    // for (int i = 0; i < _player_count; i++) {
-    //     _playerMap[i][1] = 0;
-    // }
-
     _player_count = player_count;
-
     initializeBoard();
 }
 
+// simple midway function which adds tile to the board object
 void Board::initializeBoard()
 {
     for (int i = 0; i < 2; i++) {
@@ -51,6 +46,7 @@ void Board::initializeBoard()
     }
 }
 
+// adds one track of tile to the board object, randomization for unique and different boards
 void Board::initializeTiles(int player_index)
 {
     std::srand(std::time(0));
@@ -141,12 +137,12 @@ void Board::initializeTiles(int player_index)
     }
 }
 
+// used to display an individual tile piece
 void Board::displayTile(int track, int pos, bool displayPlayerOnTile[5])
 {
     string textToDisplay = "";
     string color = "";
-    // bool player = isPlayerOnTile(player_index, pos);
-    // for(int i = 0; i < 2; i++)
+
     if (_tiles[track][pos].color == 'R') color = RED;
     else if (_tiles[track][pos].color == 'G') color = GREEN;
     else if (_tiles[track][pos].color == 'A') color = BLACK;
@@ -158,6 +154,7 @@ void Board::displayTile(int track, int pos, bool displayPlayerOnTile[5])
     else if (_tiles[track][pos].color == 'O') color = ORANGE;
     else if (_tiles[track][pos].color == 'Y') color = GREY;
 
+    // used to display player on the tile
     for(int j = 0; j < _player_count; j++){
         if(displayPlayerOnTile[j]){
             textToDisplay = textToDisplay + "P" + to_string(j+1) + " ";
@@ -169,6 +166,7 @@ void Board::displayTile(int track, int pos, bool displayPlayerOnTile[5])
     
 }
 
+// method to display a track consisting of several tiles
 void Board::displayTrack(int track)
 {   
 
@@ -177,7 +175,6 @@ void Board::displayTrack(int track)
         
         bool displayPlayerOnTile[5];
 
-        // [true, false, false, true]
 
         for(int j = 0; j < _player_count; j++){ // see which players are on a tile
             if(_playerMap[j][1] == i && _playerMap[j][0] == track+1){
@@ -195,6 +192,7 @@ void Board::displayTrack(int track)
     cout << endl;
 }
 
+// used in initialization to set up which track and position players are
 void Board::setPlayerMap(int p[5][2]){
     for(int i = 0; i < _player_count; i++){
         for(int j = 0; j < 2; j++){
@@ -203,6 +201,7 @@ void Board::setPlayerMap(int p[5][2]){
     }
 }
 
+// main function to display the board
 void Board::displayBoard()
 {
     for (int i = 0; i < 2; i++) { // for each track type
@@ -213,12 +212,14 @@ void Board::displayBoard()
     }
 }
 
+// this increments the players positiong by "moveSpaces"
 bool Board::movePlayer(int player_index, int moveSpaces)
 {
     _playerMap[player_index][1] += moveSpaces;
     return _playerMap[player_index][1] == _BOARD_SIZE - 1;
 }
 
+// returns user position
 int Board::getPlayerPosition(int player_index) const
 {
     if (player_index >= 0 && player_index < _player_count)
@@ -226,11 +227,13 @@ int Board::getPlayerPosition(int player_index) const
     return -1;
 }
 
+// returns if player is on a tile
 bool Board::isPlayerOnTile(int player_index, int pos)
 {
     return _playerMap[player_index][1] == pos;
 }
 
+// return the color/type of tile player has landed on
 char Board::processTile(int track, int position){
     return _tiles[track-1][position].color;
 }

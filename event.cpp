@@ -2,6 +2,8 @@
 #include "player.h"
 #include "event.h"
 
+
+// constructor
 Event::Event(string d, int p, int a, int c){
     _description = d;
     _pathType = p;
@@ -9,6 +11,7 @@ Event::Event(string d, int p, int a, int c){
     _prideDelta = c;
 }
 
+// GETTERS
 std::string Event::getDescription(){
     return _description;
 }

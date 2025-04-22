@@ -12,10 +12,10 @@ class Riddle {
     std::string _answer;   
 
     public:
-    // ctor
+    // CONSTRUCTOR
     Riddle(std::string q, std::string ans);
 
-    // getters
+    // GETTERS
     string getQuestion();
     string getAnswer();
 

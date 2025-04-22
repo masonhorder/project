@@ -5,13 +5,19 @@
 using namespace std;
 
 
+// default constructor
 Player::Player(){
 
 }
 
+
+// constrcutor used
 Player::Player(std::string name){
     _name = name;
 }
+
+
+// GETTERS
 
 string Player::getName(){
     return _name;
@@ -66,7 +72,7 @@ bool Player::getFinished(){
 
 
 
-
+// SETTERS
 
 void Player::setName(string name){
     _name = name;
@@ -111,6 +117,9 @@ void Player::setPosition(int p){
 }
 
 
+// METHODS
+
+// adjusts points if player select cub training 
 void Player::cubTraining(){
     _strength += 500;
     _stamina += 500;
@@ -118,6 +127,7 @@ void Player::cubTraining(){
     _pridePoints = _pridePoints - 5000;
 }
 
+// adjust points if player selects pride lands
 void Player::prideLand(){
     _strength += 200;
     _stamina += 200;
@@ -125,11 +135,10 @@ void Player::prideLand(){
     _pridePoints += 5000;
 }
 
+
+// print out the players stats
 void Player::printPlayerStats(){
     cout << "\nPlayer stats for " << _name << ": ";
-    // cout << "\n\nAdvisor: " << (_advisor==0 ? _advisorName : "None");
-    // cout << "\n\nPath Type: " << (_pathType == 1 ? "Pride Lands" : "Cub Training");
-    // cout << "\n\nAge: " << _age;
     cout << "\n\nStrength: " << _strength;
     cout << "\n\nStamina: " << _stamina;
     cout << "\n\nWisdom: " << _wisdom;
@@ -140,11 +149,17 @@ void Player::printPlayerStats(){
 
 }
 
+
+// when they finish the game, store it in player class
 void Player::finished(){
     _finished = true;
 }
 
+
+// convert their trait points to pride points
 void Player::traitToPoints(){
+
+    //10x each point when converting
     _pridePoints += _stamina*10;
     _pridePoints += _wisdom*10;
     _pridePoints += _strength*10;
