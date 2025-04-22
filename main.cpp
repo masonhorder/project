@@ -1,12 +1,16 @@
 // #include "board.h"
 #include "game.h"
-#include "game.cpp"
+// #include "game.cpp"
 #include "character.h"
-#include "character.cpp"
+// #include "character.cpp"
 #include "player.h"
-#include "player.cpp"
+// #include "player.cpp"
 #include "board.h"
-#include "board.cpp"
+// #include "board.cpp"
+#include "event.h"
+// #include "event.cpp"
+#include "riddle.h"
+// #include "riddle.cpp"
 
 #include <iostream>
 

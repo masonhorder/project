@@ -7,25 +7,22 @@
 
 
 class Event {
-private:
+    private:
     std::string _description;
     int _pathType;
     int _advisorFilter;
     int _prideDelta;         
 
-public:
+    public:
     // ctor
     Event(std::string desc, int ptype, int advisorFilter, int delta);
 
     // getters
-    const std::string&  getDescription() const;
-    int getPathType()    const;
-    int getAdvisorFilter() const;
-    int getPrideDelta()  const;
+    std::string  getDescription();
+    int getPathType();
+    int getAdvisorFilter();
+    int getPrideDelta();
 
-    bool isApplicable(int playerPath, int playerAdvisor) const;
-
-    void applyTo(Player& player) const;
 };
 
 #endif

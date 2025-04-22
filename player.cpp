@@ -57,6 +57,11 @@ int Player::getPathType(){
     return _pathType;
 }
 
+bool Player::getFinished(){
+    return _finished;
+
+}
+
 
 
 
@@ -135,4 +140,7 @@ void Player::printPlayerStats(){
 
 }
 
+void Player::finished(){
+    _finished = true;
+}
 

@@ -50,6 +50,7 @@ void Board::initializeBoard()
 
 void Board::initializeTiles(int player_index)
 {
+    std::srand(std::time(0));
     Tile temp;
     int green_count = 0;
     int total_tiles = _BOARD_SIZE;
@@ -62,7 +63,7 @@ void Board::initializeTiles(int player_index)
         else if (i == total_tiles - 1) {
             temp.color = 'O'; 
         }
-        else if (green_count < 30 && (rand() % (total_tiles - i) < 30 - green_count)) {
+        else if (green_count < (player_index == 1 ? 30 : 20) && (rand() % (total_tiles - i) < (player_index == 1 ? 30 : 20) - green_count)) {
             temp.color = 'G'; 
             green_count++;
         }
@@ -71,7 +72,7 @@ void Board::initializeTiles(int player_index)
             bool isFirstHalf = i < (total_tiles / 2);
 
             if (player_index == 0) { // Cub Training
-                if (specialType < 20) {
+                if (!isFirstHalf && specialType < 20) {
                     temp.color = 'R'; // Graveyard
                 }
                 else if (specialType < 40) {
@@ -92,10 +93,10 @@ void Board::initializeTiles(int player_index)
             }
             else { // Straight to the Pride Lands
                 if (isFirstHalf) {
-                    if (specialType < 25) {
-                        temp.color = 'R'; // Graveyard
-                    }
-                    else if (specialType < 50) {
+                    // if (specialType < 25) {
+                    //     temp.color = 'R'; // Graveyard
+                    // }
+                    if (specialType < 50) {
                         temp.color = 'N'; // Hyena
                     }
                     else if (specialType < 70) {
@@ -109,7 +110,7 @@ void Board::initializeTiles(int player_index)
                     }
                 }
                 else {
-                    if (specialType < 15) {
+                    if (specialType < 25) {
                         temp.color = 'R';
                     }
                     else if (specialType < 30) {
@@ -151,9 +152,6 @@ void Board::displayTile(int track, int pos, bool displayPlayerOnTile[5])
         if(displayPlayerOnTile[j]){
             textToDisplay = textToDisplay + "P" + to_string(j+1) + " ";
         }
-        else{
-            // textToDisplay = textToDisplay + "";
-        }
     }
 
     
@@ -164,10 +162,14 @@ void Board::displayTile(int track, int pos, bool displayPlayerOnTile[5])
 void Board::displayTrack(int track)
 {   
 
-    for (int i = 0; i < _BOARD_SIZE; i++) {
+    for (int i = 0; i < _BOARD_SIZE; i++) { // for each spot on board
+        
+        
         bool displayPlayerOnTile[5];
 
-        for(int j = 0; j < _player_count; j++){
+        // [true, false, false, true]
+
+        for(int j = 0; j < _player_count; j++){ // see which players are on a tile
             if(_playerMap[j][1] == i && _playerMap[j][0] == track+1){
                 displayPlayerOnTile[j] = true;
             }
@@ -175,6 +177,8 @@ void Board::displayTrack(int track)
                 displayPlayerOnTile[j] = false; 
             }
         }
+
+
         displayTile(track, i, displayPlayerOnTile);
     }
 
@@ -191,18 +195,10 @@ void Board::setPlayerMap(int p[5][2]){
 
 void Board::displayBoard()
 {
-    for (int i = 0; i < 2; i++) {
-
-        // int p[5][2] = {
-        //     // {1, 4},
-        //     // {2, 3},
-        //     // {2, 15},
-        //     // {1, 20},
-        //     // {2, 3}
-        // };
+    for (int i = 0; i < 2; i++) { // for each track type
         if(i == 0) cout << "Pride Land Board: " << endl;
         if(i == 1) cout << "Cub Training Board: " << endl;
-        displayTrack(i);
+        displayTrack(i); // display the track
         if (i == 0) cout << endl;
     }
 }
@@ -223,4 +219,8 @@ int Board::getPlayerPosition(int player_index) const
 bool Board::isPlayerOnTile(int player_index, int pos)
 {
     return _playerMap[player_index][1] == pos;
+}
+
+char Board::processTile(int track, int position){
+    return _tiles[track-1][position].color;
 }

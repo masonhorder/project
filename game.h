@@ -23,8 +23,8 @@ private:
 
     std::vector<Character> allCharacters;
     // std::vector<Advisor> allAdvisors;
-    // std::vector<RandomEvent> randomEvents;
-    // std::vector<Riddle> riddles;
+    std::vector<Event> allEvents;
+    std::vector<Riddle> allRiddles;
 
 public:
     Game();
@@ -38,6 +38,8 @@ public:
 
     void mainMenu();
 
+    int getPlayerCount();
+
 
     void processTile();
     void handleRandomEvent();
@@ -45,6 +47,7 @@ public:
     void playTurn();
     bool isGameOver();
     void endGame();
+    
 };
 
 #endif

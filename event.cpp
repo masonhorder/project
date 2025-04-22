@@ -9,4 +9,15 @@ Event::Event(string d, int p, int a, int c){
     _prideDelta = c;
 }
 
-// Event::
+std::string Event::getDescription(){
+    return _description;
+}
+int Event::getPathType(){
+    return _pathType;
+}
+int Event::getAdvisorFilter(){
+    return _advisorFilter;
+}
+int Event::getPrideDelta(){
+    return _prideDelta;
+}

@@ -93,7 +93,7 @@ void Character::printStats(){
     cout << "Age: " << _age << endl;
     cout << "Strength: " << _strength << endl;
     cout << "Stamina: " << _stamina << endl;
-    cout << "Wisdome: " << _wisdom << endl;
+    cout << "Wisdom: " << _wisdom << endl;
     cout << "Pride Points: " << _pridePoints << endl;
     cout << "Chosen: " << (_isChosen ? "Yes" : "No") << endl << endl;
 }

@@ -9,8 +9,7 @@ private:
     Tile _tiles[2][_BOARD_SIZE];
     static const int _MAX_PLAYERS = 5;
     int _player_count;
-    int _playerMap[5][2]; // spot 1 is path type, spot 2 is position
-    // int _player_position[_MAX_PLAYERS];
+    int _playerMap[_MAX_PLAYERS][2]; // spot 1 is path type, spot 2 is position
     void displayTile(int track, int pos, bool displayPlayerOnTile[5]);
     void initializeTiles(int player_index);
     bool isPlayerOnTile(int player_index, int pos);
@@ -24,6 +23,7 @@ public:
     bool movePlayer(int player_index, int moveSpaces);
     int getPlayerPosition(int player_index) const;
     void setPlayerMap(int p[5][2]); 
+    char processTile(int t, int p);
 };
 
 #endif

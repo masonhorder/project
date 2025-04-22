@@ -2,7 +2,7 @@
 #define CHARACTER_H
 
 #include <iostream> 
-#include "player.h"
+
 
 
 

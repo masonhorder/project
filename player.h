@@ -22,6 +22,7 @@ class Player
         int _wisdom;
         int _pridePoints;
         string _characterName;
+        bool _finished = false;
 
     public:
 
@@ -46,6 +47,7 @@ class Player
         int getWisdom();
         int getPridePoints();
         string getAdvisorName();
+        bool getFinished();
         // int getPathType();
 
         // setters
@@ -76,6 +78,7 @@ class Player
         void updateStats(); // update stats based on certain things
         void chooseAdvisor(); // allows for picking an advisor
         void traitToPoints();
+        void finished();
 
 
 
