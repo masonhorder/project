@@ -43,7 +43,7 @@ int main(){
 
 
 
-    // game.endGame();
+    game.endGame();
 
     
 

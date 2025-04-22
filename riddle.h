@@ -16,10 +16,8 @@ class Riddle {
     Riddle(std::string q, std::string ans);
 
     // getters
-    // const std::string  getDescription() const;
-    // int getPathType()    const;
-    // int getAdvisorFilter() const;
-    // int getPrideDelta()  const;
+    string getQuestion();
+    string getAnswer();
 
 };
 

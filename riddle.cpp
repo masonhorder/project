@@ -7,4 +7,12 @@ Riddle::Riddle(string q, string a){
     _question = q;
 }
 
+
+string Riddle::getQuestion(){
+    return _question;
+}
+
+string Riddle::getAnswer(){
+    return _answer;
+}
 // Event::

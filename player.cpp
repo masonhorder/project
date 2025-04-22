@@ -144,3 +144,14 @@ void Player::finished(){
     _finished = true;
 }
 
+void Player::traitToPoints(){
+    _pridePoints += _stamina*10;
+    _pridePoints += _wisdom*10;
+    _pridePoints += _strength*10;
+
+    _strength = 0;
+    _wisdom = 0;
+    _stamina = 0;
+
+}
+

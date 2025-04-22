@@ -12,7 +12,10 @@
 #define PURPLE "\033[48;2;128;0;128m"
 #define ORANGE "\033[48;2;230;115;0m"
 #define GREY "\033[48;2;128;128;128m"
+#define BLACK  "\033[48;2;0;0;0m"
+#define YELLOW "\033[48;2;255;255;0m"
 #define RESET "\033[0m"
+
 
 using namespace std;
 
@@ -71,32 +74,37 @@ void Board::initializeTiles(int player_index)
             int specialType = rand() % 100;
             bool isFirstHalf = i < (total_tiles / 2);
 
-            if (player_index == 0) { // Cub Training
+            if (player_index == 0) { // Pride land
+
+
                 if (!isFirstHalf && specialType < 20) {
                     temp.color = 'R'; // Graveyard
                 }
-                else if (specialType < 40) {
+                else if (specialType < 30) {
                     temp.color = 'N'; // Hyena
                 }
-                else if (specialType < 55) {
+                else if (specialType < 40) {
                     temp.color = 'B'; // Advisor
                 }
-                else if (isFirstHalf && specialType < 80) {
+                else if (isFirstHalf && specialType < 60) {
                     temp.color = 'P'; // Oasis (25%)
                 }
-                else if (!isFirstHalf && specialType < 85) {
+                else if (!isFirstHalf && specialType < 70) {
                     temp.color = 'P'; // Oasis (15%)
                 }
+                else if (!isFirstHalf && specialType < 80) {
+                    temp.color = 'U'; // challenge
+                }
                 else {
-                    temp.color = 'U'; // Challenge
+                    temp.color = 'A'; // Pot o gold
                 }
             }
-            else { // Straight to the Pride Lands
+            else { // Cub training
                 if (isFirstHalf) {
-                    // if (specialType < 25) {
-                    //     temp.color = 'R'; // Graveyard
-                    // }
-                    if (specialType < 50) {
+                    if (specialType < 5) {
+                        temp.color = 'W'; // Black 
+                    }
+                    else if (specialType < 50) {
                         temp.color = 'N'; // Hyena
                     }
                     else if (specialType < 70) {
@@ -141,6 +149,8 @@ void Board::displayTile(int track, int pos, bool displayPlayerOnTile[5])
     // for(int i = 0; i < 2; i++)
     if (_tiles[track][pos].color == 'R') color = RED;
     else if (_tiles[track][pos].color == 'G') color = GREEN;
+    else if (_tiles[track][pos].color == 'A') color = BLACK;
+    else if (_tiles[track][pos].color == 'W') color = YELLOW;
     else if (_tiles[track][pos].color == 'B') color = BLUE;
     else if (_tiles[track][pos].color == 'U') color = PURPLE;
     else if (_tiles[track][pos].color == 'N') color = BROWN;
