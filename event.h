@@ -1,3 +1,6 @@
+// MASON HORDER AND HADDEN SPENCER
+
+
 #ifndef EVENT_H
 #define EVENT_H
 

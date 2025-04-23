@@ -1,3 +1,6 @@
+// MASON HORDER AND HADDEN SPENCER
+
+
 #include "board.h"
 #include <iostream>
 #include <cstdlib> 

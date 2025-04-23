@@ -1,3 +1,6 @@
+// MASON HORDER AND HADDEN SPENCER
+
+
 #include <iostream>
 #include "player.h"
 #include "riddle.h"

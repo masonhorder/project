@@ -1,3 +1,5 @@
+// MASON HORDER AND HADDEN SPENCER
+
 #include "game.h"
 #include "event.h"
 #include <iostream>
@@ -17,7 +19,7 @@ using std::chrono::system_clock;
 
 
 Game::Game(){
-    
+
 }
 
 // FILE SET UP

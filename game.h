@@ -1,3 +1,6 @@
+// MASON HORDER AND HADDEN SPENCER
+
+
 #ifndef GAME_H
 #define GAME_H
 

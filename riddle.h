@@ -1,3 +1,6 @@
+// MASON HORDER AND HADDEN SPENCER
+
+
 #ifndef RIDDLE_H
 #define RIDDLE_H
 

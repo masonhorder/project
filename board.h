@@ -1,3 +1,6 @@
+// MASON HORDER AND HADDEN SPENCER
+
+
 #ifndef BOARD_H
 #define BOARD_H
 #include "tile.h"
