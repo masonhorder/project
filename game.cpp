@@ -16,7 +16,9 @@ using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
 using std::chrono::system_clock;
 
 
-
+Game::Game(){
+    
+}
 
 // FILE SET UP
 
@@ -604,7 +606,7 @@ void Game::playTurn(){
                             m2 = distribution(generator);
                         }
 
-                        cout << players[i].getName() << " Rolled: " << m1 << "\n\n";
+                        cout << "\n\n" << players[i].getName() << " Rolled: " << m1 << "\n\n";
                         cout << players[playerOnTile].getName() << " Rolled: " << m2 << "\n\n";
 
                         if(m2 > m1){
