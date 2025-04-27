@@ -35,8 +35,9 @@ Board::Board() {
 }
 
 // board constructor which is used in the code
-Board::Board(int player_count)
+Board::Board(int player_count, int boardSize)
 {
+    _board_size = boardSize;
     _player_count = player_count;
     initializeBoard();
 }
@@ -55,7 +56,8 @@ void Board::initializeTiles(int player_index)
     std::srand(std::time(0));
     Tile temp;
     int green_count = 0;
-    int total_tiles = _BOARD_SIZE;
+    int total_tiles = _board_size;
+    double greenTotal = (player_index == 1 ? 30.0 : 20.0)*(_board_size/52.0); //This is the number that we are applying that makes the correct amount of green tiles
 
     for (int i = 0; i < total_tiles; i++)
     {
@@ -65,7 +67,8 @@ void Board::initializeTiles(int player_index)
         else if (i == total_tiles - 1) {
             temp.color = 'O'; 
         }
-        else if (green_count < (player_index == 1 ? 30 : 20) && (rand() % (total_tiles - i) < (player_index == 1 ? 30 : 20) - green_count)) {
+                            //below makes the green count tiles proporsional even if 80
+        else if (green_count < greenTotal && (rand() % (total_tiles - i) < greenTotal - green_count)) {
             temp.color = 'G'; 
             green_count++;
         }
@@ -85,13 +88,13 @@ void Board::initializeTiles(int player_index)
                 else if (specialType < 40) {
                     temp.color = 'B'; // Advisor
                 }
-                else if (isFirstHalf && specialType < 60) {
+                else if (isFirstHalf && specialType < 55) {
                     temp.color = 'P'; // Oasis (25%)
                 }
-                else if (!isFirstHalf && specialType < 70) {
+                else if (!isFirstHalf && specialType < 65) {
                     temp.color = 'P'; // Oasis (15%)
                 }
-                else if (!isFirstHalf && specialType < 80) {
+                else if (!isFirstHalf && specialType < 85) {
                     temp.color = 'U'; // challenge
                 }
                 else {
@@ -100,7 +103,7 @@ void Board::initializeTiles(int player_index)
             }
             else { // Cub training
                 if (isFirstHalf) {
-                    if (specialType < 5) {
+                    if (specialType < 20) {
                         temp.color = 'W'; // Black 
                     }
                     else if (specialType < 50) {
@@ -173,7 +176,7 @@ void Board::displayTile(int track, int pos, bool displayPlayerOnTile[5])
 void Board::displayTrack(int track)
 {   
 
-    for (int i = 0; i < _BOARD_SIZE; i++) { // for each spot on board
+    for (int i = 0; i < _board_size; i++) { // for each spot on board
         
         
         bool displayPlayerOnTile[5];
@@ -219,7 +222,7 @@ void Board::displayBoard()
 bool Board::movePlayer(int player_index, int moveSpaces)
 {
     _playerMap[player_index][1] += moveSpaces;
-    return _playerMap[player_index][1] == _BOARD_SIZE - 1;
+    return _playerMap[player_index][1] == _board_size - 1;
 }
 
 // returns user position
@@ -239,4 +242,12 @@ bool Board::isPlayerOnTile(int player_index, int pos)
 // return the color/type of tile player has landed on
 char Board::processTile(int track, int position){
     return _tiles[track-1][position].color;
+}
+
+int Board::getBoardSize(){
+    return _board_size;
+}
+
+void Board::setBoardSize(int b){
+    _board_size = b;
 }

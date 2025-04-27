@@ -19,6 +19,7 @@ private:
     Player players[5];
 
     int _playerCount = 0;
+    int _boardSize;
 
     Board board;
 
@@ -47,6 +48,8 @@ public:
     void playTurn();
     bool isGameOver();
     void endGame();
+    void setBoardSize(int b);
+    int getBoardSize();
     
 };
 

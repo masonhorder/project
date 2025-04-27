@@ -58,10 +58,10 @@ void Game::readFiles() {
         }
 
 
-        int age      = std::stoi(ageStr);
+        int age = std::stoi(ageStr);
         int strength = std::stoi(strStr);
-        int stamina  = std::stoi(staStr);
-        int wisdom   = std::stoi(wisStr);
+        int stamina = std::stoi(staStr);
+        int wisdom = std::stoi(wisStr);
         int pridePts = std::stoi(ppStr);
 
         allCharacters.emplace_back(
@@ -156,7 +156,7 @@ void Game::readFiles() {
 
 
 
-// PLAYER SET UP
+// PLAYER SET UP - Hadden
 
 // sets up player with certain values
 void Game::playerSetup(){
@@ -175,7 +175,7 @@ void Game::playerSetup(){
     bool validPlayerCount = false;
     int playerCountInput = 0;
 
-    while (!validPlayerCount || cin.fail())
+    while (!validPlayerCount)
     {
         cout << "Type in (2,3,4 or 5): ";
         cin >> playerCountInput;
@@ -191,12 +191,31 @@ void Game::playerSetup(){
     
     _playerCount = playerCountInput;
 
+    int selectedBoardSize;
+    cout << "\nHow big would you like the playing board to be? (30 - 80)" << endl; 
+    
+    bool validBoardSize = false;
+    //CUSTOMIZATION - Allow for different board size - made a ratio in board.cpp that made green tiles ratio to length
+    while(!validBoardSize){ 
+        cout << "Type in a value from 30 to 80: ";
+        cin >> selectedBoardSize;
+
+        cout << endl;
+        if((selectedBoardSize >= 30 && selectedBoardSize <= 80)){
+            validBoardSize = true;
+        }
+    }
+    
+    _boardSize = selectedBoardSize;
+
+    cout << "\n Awesome! Your board will be " << _boardSize << " tiles long!" << endl;
+
     
     // This loop sets name
 
     for(int i = 0; i < _playerCount; i++){
         string n;
-        cout << "\nHello Player " << (i+1) << "!\nWhats your name?" << endl;
+        cout << "\n\n\nHello Player " << (i+1) << "!\nWhats your name?" << endl;
         cin >> n;
 
         players[i] = Player(n);
@@ -359,7 +378,7 @@ void Game::playerSetup(){
 // SET UP BOARD
 
 void Game::setUpBoard(){
-    board = Board(_playerCount);
+    board = Board(_playerCount, _boardSize);
     
     int pMap[5][2];
 
@@ -559,11 +578,11 @@ void Game::playTurn(){
 
                 
 
-                if(players[i].getPosition() + moveSpaces >= 51){ // if player reached the end
+                if(players[i].getPosition() + moveSpaces >=_boardSize-1){ // if player reached the end
                     cout << "Congratulations " << players[i].getName() << "! You made it to the end, stand by till everyone else is done" << endl;
                     players[i].finished();
-                    moveSpaces = 51 - players[i].getPosition();
-                    players[i].setPosition(52);
+                    moveSpaces = _boardSize-1 - players[i].getPosition();
+                    players[i].setPosition(_boardSize);
                     board.movePlayer(i, moveSpaces);
                 }
                 else{
@@ -656,7 +675,24 @@ void Game::playTurn(){
 
                                 }
                                 else{
-                                    players[i].setPridePoints(players[i].getPridePoints() + allEvents[pickRandomEvent].getPrideDelta());
+
+                                    // EXTRA CREDIT: age effects events outcome
+                                    double prideDeltaModifier = 1;
+                                    int ageChangeHappening = rand() % 100;
+                                    
+                                    
+                                    if(ageChangeHappening < 50){ // 50% chance age does effect event outcome
+                                        int a = players[i].getAge();
+
+                                        int randomAge = rand() % 20; // random age chosen
+
+                                        if(a > randomAge){ // if player age is greater than random age, multiply pride delta times 2
+                                            prideDeltaModifier = 2;
+                                            cout << "Looks like your old age made a difference... you now have a pride point change of 2x: " << (allEvents[pickRandomEvent].getPrideDelta()*prideDeltaModifier) << " pride points" << endl;
+                                        }
+                                    }
+
+                                    players[i].setPridePoints(players[i].getPridePoints() + (allEvents[pickRandomEvent].getPrideDelta()*prideDeltaModifier));
                                     cout << "Your Pride Points have updated, new value: " << to_string(players[i].getPridePoints()) << "(" << allEvents[pickRandomEvent].getPrideDelta() << ")" << endl;
                                 }
                                 
@@ -809,6 +845,8 @@ void Game::playTurn(){
 
                         }
 
+                        
+
                         else if(tile == 'A'){ // EXTRA CREDIT black tile which removes points from every other player
                             cout << "You have turned to a wizard, take away 100 pride points from every other player." << endl << endl;
                             for(int s = 0; s < _playerCount; s++){
@@ -843,7 +881,7 @@ void Game::playTurn(){
 // method to end the game
 void Game::endGame(){
 
-    int playersranked[5];
+    int playersranked[5]; // this stores the player numbers in a ranked order
 
     // convert points
     for(int i = 0; i < _playerCount; i++){
@@ -857,7 +895,7 @@ void Game::endGame(){
     }
 
 
-
+    // SORT FUNCTION
     // sort players, create a ranked list based off pride poibnts
     for(int i = 0; i < n; ++i) {
         int bestPos = i;
@@ -949,4 +987,12 @@ void Game::endGame(){
 // returns player count
 int Game::getPlayerCount(){
     return _playerCount;
+}
+
+int Game::getBoardSize(){
+    return _boardSize;
+}
+
+void Game::setBoardSize(int b){
+    _boardSize = b;
 }

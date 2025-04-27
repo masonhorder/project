@@ -8,8 +8,8 @@
 class Board
 {
 private:
-    static const int _BOARD_SIZE = 52;
-    Tile _tiles[2][_BOARD_SIZE];
+    int  _board_size;
+    Tile _tiles[2][80];
     static const int _MAX_PLAYERS = 5;
     int _player_count;
     int _playerMap[_MAX_PLAYERS][2]; // spot 1 is path type, spot 2 is position
@@ -19,7 +19,7 @@ private:
 
 public:
     Board();
-    Board(int player_count);
+    Board(int player_count, int _board_size);
     void displayTrack(int track);
     void initializeBoard();
     void displayBoard();
@@ -27,6 +27,8 @@ public:
     int getPlayerPosition(int player_index) const;
     void setPlayerMap(int p[5][2]); 
     char processTile(int t, int p);
+    void setBoardSize(int b);
+    int getBoardSize();
 };
 
 #endif
