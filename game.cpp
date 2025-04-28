@@ -616,7 +616,7 @@ void Game::playTurn(){
 
                         cout << "\nWe will roll a dice for each of you, whoever rolls higher stays, the other will return to " << players[i].getName() << "'s previous position" << endl << endl;
 
-                        sleep_for(3000ms);
+                        sleep_for(1500ms);
 
                         std::uniform_int_distribution<int> distribution(1, 6);
                         static std::mt19937 generator(std::time(0));
@@ -654,7 +654,7 @@ void Game::playTurn(){
 
                             int randomEventHappening = rand() % 100;
                             cout << "\n\nGrass Land!" << endl;
-                            sleep_for(2000ms);
+                            sleep_for(1000ms);
 
                             if(randomEventHappening < 50){ // 50% chance a player gets a random event
                                 cout << "\nYou have been chosen for a random event" << endl;
@@ -862,8 +862,7 @@ void Game::playTurn(){
 
                 }
                     
-                sleep_for(5ms);
-                sleep_for(5000ms);
+                sleep_for(2500ms);
 
             }
         }
@@ -871,7 +870,7 @@ void Game::playTurn(){
         
         else{
             cout << players[i].getName() << " you made it to the end. Next turn" << endl;
-            sleep_for(2s);
+            sleep_for(1s);
         }
     }
 

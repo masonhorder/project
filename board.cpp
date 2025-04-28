@@ -76,10 +76,10 @@ void Board::initializeTiles(int player_index)
             int specialType = rand() % 100;
             bool isFirstHalf = i < (total_tiles / 2);
 
-            if (player_index == 0) { // Pride land
+            if (player_index == 0) { // Cub Training
 
 
-                if (!isFirstHalf && specialType < 20) {
+                if (!isFirstHalf && specialType < 12) {
                     temp.color = 'R'; // Graveyard
                 }
                 else if (specialType < 30) {
@@ -94,14 +94,14 @@ void Board::initializeTiles(int player_index)
                 else if (!isFirstHalf && specialType < 65) {
                     temp.color = 'P'; // Oasis (15%)
                 }
-                else if (!isFirstHalf && specialType < 85) {
+                else if (!isFirstHalf && specialType < 90) {
                     temp.color = 'U'; // challenge
                 }
                 else {
                     temp.color = 'A'; // Pot o gold
                 }
             }
-            else { // Cub training
+            else { // Pride Land
                 if (isFirstHalf) {
                     if (specialType < 20) {
                         temp.color = 'W'; // Black 
@@ -120,7 +120,7 @@ void Board::initializeTiles(int player_index)
                     }
                 }
                 else {
-                    if (specialType < 25) {
+                    if (specialType < 12) {
                         temp.color = 'R';
                     }
                     else if (specialType < 30) {
