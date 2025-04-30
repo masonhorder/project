@@ -179,14 +179,19 @@ void Game::playerSetup(){
     {
         cout << "Type in (2,3,4 or 5): ";
         cin >> playerCountInput;
+        cout << endl;
+        if (cin.fail()) { // error handling
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        else{
+            if((playerCountInput > 1 && playerCountInput < 6)){
+                validPlayerCount = true;
+            }
+        }
+        
         
 
-        cout << endl;
-        // if(!cin.fail()){
-        if((playerCountInput > 1 && playerCountInput < 6)){
-            validPlayerCount = true;
-        }
-        // }
     }
     
     _playerCount = playerCountInput;
@@ -195,14 +200,21 @@ void Game::playerSetup(){
     cout << "\nHow big would you like the playing board to be? (30 - 80)" << endl; 
     
     bool validBoardSize = false;
+
     //CUSTOMIZATION - Allow for different board size - made a ratio in board.cpp that made green tiles ratio to length
     while(!validBoardSize){ 
         cout << "Type in a value from 30 to 80: ";
         cin >> selectedBoardSize;
 
         cout << endl;
-        if((selectedBoardSize >= 30 && selectedBoardSize <= 80)){
-            validBoardSize = true;
+        if (cin.fail()) { // error handling
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        else{
+            if((selectedBoardSize >= 30 && selectedBoardSize <= 80)){
+                validBoardSize = true;
+            }
         }
     }
     
@@ -291,11 +303,18 @@ void Game::playerSetup(){
             cout << "Option 2: Cub Training where you can chose an advisor and have a possibly more gentle experience" << endl;
             cout << "(Type in 1 or 2): ";
             cin >> path;
-            if(path == 1 || path == 2){
-                validPathSelection = true;
-            }
-            if(!validPathSelection){
+            if (cin.fail()) { // error handling
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "\n\nInvalid path selection, try again" << endl;
+            }
+            else{
+                if(path == 1 || path == 2){
+                    validPathSelection = true;
+                }
+                if(!validPathSelection){
+                    cout << "\n\nInvalid path selection, try again" << endl;
+                }
             }
         }
 
@@ -322,11 +341,18 @@ void Game::playerSetup(){
                 cout << "Option 5: Sarafina - Super Speed (the ability to run 4x faster than the maximum speed of lions)" << endl;
                 cout << "(Type in the option/advisor you want): ";
                 cin >> advisor;
-                if(advisor == 1 || advisor == 2 || advisor == 3 || advisor == 4 || advisor == 5){
-                    validAdvisorSelection = true;
-                }
-                if(!validAdvisorSelection){
+                if (cin.fail()) { // error handling
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     cout << "\n\nInvalid Advisor selection, try again" << endl;
+                }
+                else{
+                    if(advisor == 1 || advisor == 2 || advisor == 3 || advisor == 4 || advisor == 5){
+                        validAdvisorSelection = true;
+                    }
+                    if(!validAdvisorSelection){
+                        cout << "\n\nInvalid Advisor selection, try again" << endl;
+                    }
                 }
             }
 
@@ -427,6 +453,7 @@ void Game::playTurn(){
             bool mainMenu = true;
             while(mainMenu){ // loop through the main menu letting the player pick until they chose to move on
                 int mainMenuSelection;
+                bool validMainMenuSelection = false;
 
                 
                 cout << "\n\n\n" << players[i].getName() << " it is your turn.";
@@ -437,12 +464,25 @@ void Game::playTurn(){
                 cout << "\n\n4. Review your Advisor (4)";
                 cout << "\n\n5. Move Forward (5)";
 
-                cout << "\n\n\nPlease chose one of the following options: ";
-                cin >> mainMenuSelection;
+                
 
-                while(mainMenuSelection < 1 || mainMenuSelection > 5){
-                    cout << "\nOops, type in 1, 2, 3, 4 or 5: ";
+                while(!validMainMenuSelection){
+                    cout << "\n\n\nPlease chose one of the following options: ";
                     cin >> mainMenuSelection;
+                    if (cin.fail()) { // error handling
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << "\nOops, type in 1, 2, 3, 4 or 5" << endl;
+                    }
+                    else{
+                        if((mainMenuSelection < 1 || mainMenuSelection > 5)){
+                            cout << "\nOops, type in 1, 2, 3, 4 or 5" << endl;
+                            
+                        }
+                        else{
+                            validMainMenuSelection = true;
+                        }
+                    }
                 }
 
 
