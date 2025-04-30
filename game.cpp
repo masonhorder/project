@@ -524,7 +524,7 @@ void Game::playTurn(){
                             break;
 
                         case 4: // main menu - review advsior
-                            cout << "Advisor Name: " << (players[i].getAdvisor() != 1 ? "You don't have an advisor, you selected to be in pride lands" : players[i].getAdvisorName()) << endl;
+                            cout << "Advisor Name: " << (players[i].getAdvisor() == 0 ? "You don't have an advisor, you selected to be in pride lands" : players[i].getAdvisorName()) << endl;
 
                             if(players[i].getAdvisor() != 0){ // check they have the ability to select advisor
                                 string changeAdvisor;
